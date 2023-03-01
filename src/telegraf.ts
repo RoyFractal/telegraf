@@ -216,7 +216,7 @@ export class Telegraf<C extends Context = Context> extends Composer<C> {
   private startPolling(allowedUpdates: tt.UpdateType[] = []) {
     this.polling = new Polling(this.telegram, allowedUpdates)
     return this.polling.loop(async (update) => {
-      await this.handleUpdate(update)
+      this.handleUpdate(update)
     })
   }
 
@@ -306,7 +306,7 @@ export class Telegraf<C extends Context = Context> extends Composer<C> {
         'Update %d is waiting for `botInfo` to be initialized',
         update.update_id
       ),
-      await (this.botInfoCall ??= this.telegram.getMe()))
+        await (this.botInfoCall ??= this.telegram.getMe()))
     debug('Processing update', update.update_id)
     const tg = new Telegram(this.token, this.telegram.options, webhookResponse)
     const TelegrafContext = this.options.contextType
