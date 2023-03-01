@@ -87,10 +87,10 @@ export class Composer<C extends Context> implements MiddlewareObj<C> {
     ...fns: NonemptyReadonlyArray<
       Middleware<
         Filter extends tt.MessageSubType
-          ? MatchedContext<C, Filter>
-          : Filter extends tt.UpdateType | Guard<C['update']>
-          ? FilteredContext<C, Filter>
-          : never
+        ? MatchedContext<C, Filter>
+        : Filter extends tt.UpdateType | Guard<C['update']>
+        ? FilteredContext<C, Filter>
+        : never
       >
     >
   ): this {
@@ -167,8 +167,8 @@ export class Composer<C extends Context> implements MiddlewareObj<C> {
 
   private entity<
     T extends 'message' | 'channel_post' | tt.MessageSubType =
-      | 'message'
-      | 'channel_post'
+    | 'message'
+    | 'channel_post'
   >(
     predicate:
       | MaybeArray<string>
@@ -455,12 +455,12 @@ export class Composer<C extends Context> implements MiddlewareObj<C> {
           // https://github.com/microsoft/TypeScript/pull/51502
           typeof filter !== 'string'
             ? // filter is a type guard
-              filter(update)
+            filter(update)
             : // check if filter is the update type
-              filter in update ||
-              // check if filter is the msg type
-              // TODO: remove in v5!
-              ('message' in update && filter in update.message)
+            filter in update ||
+            // check if filter is the msg type
+            // TODO: remove in v5!
+            ('message' in update && filter in update.message)
         ) {
           return true
         }
@@ -481,8 +481,8 @@ export class Composer<C extends Context> implements MiddlewareObj<C> {
   private static entity<
     C extends Context,
     T extends 'message' | 'channel_post' | tt.MessageSubType =
-      | 'message'
-      | 'channel_post'
+    | 'message'
+    | 'channel_post'
   >(
     predicate:
       | MaybeArray<string>
@@ -619,11 +619,11 @@ export class Composer<C extends Context> implements MiddlewareObj<C> {
   private static match<
     C extends Context,
     T extends
-      | 'message'
-      | 'channel_post'
-      | 'callback_query'
-      | 'inline_query'
-      | tt.MessageSubType
+    | 'message'
+    | 'channel_post'
+    | 'callback_query'
+    | 'inline_query'
+    | tt.MessageSubType
   >(
     triggers: ReadonlyArray<(text: string, ctx: C) => RegExpExecArray | null>,
     ...fns: MatchedMiddleware<C, T>
